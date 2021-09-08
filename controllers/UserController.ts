@@ -1,5 +1,6 @@
 import { Controller, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
 import { Service } from 'typedi';
+import { ConsoleLog } from '../decorators/console.log-decorator';
 // import { Inject } from 'typedi';
 import { ExampleInjectedService } from '../services/ExampleService';
 
@@ -9,6 +10,7 @@ export class UserController {
   constructor(private readonly exampleService: ExampleInjectedService){}
 
   @Get('/users')
+  @ConsoleLog()
   getAll() {
     return this.exampleService.printMessage();
   }
