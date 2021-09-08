@@ -1,8 +1,7 @@
 import { useContainer, useExpressServer } from 'routing-controllers';
 import "reflect-metadata";
 
-import express from 'express'
-import { UserController } from './controllers/UserController';
+import express from 'express';
 import { Container } from 'typedi';
 useContainer(Container);
 
