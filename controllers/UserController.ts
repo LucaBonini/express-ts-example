@@ -1,4 +1,4 @@
-import { Controller, Param, Body, Get, Post, Put, Delete } from 'routing-controllers';
+import { Controller, Param, Body, Get, Post, Put, Delete, Req, UseInterceptor, Action } from 'routing-controllers';
 import { Service } from 'typedi';
 import { ConsoleLog } from '../decorators/console.log-decorator';
 // import { Inject } from 'typedi';
@@ -10,8 +10,14 @@ export class UserController {
   constructor(private readonly exampleService: ExampleInjectedService){}
 
   @Get('/users')
+  @UseInterceptor(function(action: Action, content: any) {
+    // here you have content returned by this action. you can replace something
+    // in it and return a replaced result. replaced result will be returned to the user
+    console.log(action.request, 'REQ')
+    return content
+  })
   @ConsoleLog()
-  getAll() {
+  getAll(@Req() res: Express.Request) {
     return this.exampleService.printMessage();
   }
 
