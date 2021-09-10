@@ -10,6 +10,7 @@ let app = express(); // your created express server
 useExpressServer(app, {
   // register created express server in routing-controllers
   controllers: [__dirname + '/controllers/*.js'], // and configure it the way you need (controllers, validation, etc.)
+  development: process.env.NODE_ENV !== 'production'
 });
 app.listen(3000); // run your express server
 console.log('started....')

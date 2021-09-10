@@ -1,4 +1,4 @@
-import { Controller, Param, Body, Get, Post, Put, Delete, Req, UseInterceptor } from 'routing-controllers';
+import { Controller, Param, Body, Get, Post, Put, Delete, Req, UseInterceptor, NotFoundError } from 'routing-controllers';
 import { Service } from 'typedi';
 import { ConsoleLog } from '../decorators/consoleLog.decorator';
 import { consoleLogInterceptor } from '../interceptors/consoleLog.interceptor';
@@ -19,6 +19,9 @@ export class UserController {
 
   @Get('/users/:id')
   getOne(@Param('id') id: number) {
+    if (isNaN(id)) {
+      throw new NotFoundError(`User was not found.`); // message is optional
+    }
     return 'This action returns user #' + id;
   }
 
