@@ -12,6 +12,7 @@ useExpressServer(app, {
   controllers: [__dirname + '/controllers/*.js'], // and configure it the way you need (controllers, validation, etc.)
   development: process.env.NODE_ENV !== 'production',
   // authorizationChecker: async (action) => {}
+  validation: true, // use class transformer to validate 
 });
 app.listen(3000); // run your express server
 console.log('started....')
