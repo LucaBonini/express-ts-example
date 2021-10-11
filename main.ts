@@ -5,6 +5,8 @@ const PORT = process.env.PORT || 3000
 const application = container.get(Application)
 
 application.bootstrap()
-application.applicationServer.listen(PORT, () => {
-  console.log('application started on port ', PORT)
-})
+  .then(() => {
+    application.applicationServer.listen(PORT, () => {
+      console.log('application started on port ', PORT)
+    })
+  })

@@ -3,18 +3,23 @@ import * as http from 'http'
 import "reflect-metadata";
 
 import express from 'express';
-import { Provide } from './context/Ioc';
+import { Inject, Provide } from './context/Ioc';
+import { Database } from './context/Database';
 
 @Provide(Application)
 export class Application {
   private app: Express.Application
   private server: http.Server
 
+  constructor(
+    @Inject(Database) private database: Database
+  ){}
+
   private connectToDatabase() {
 
   }
 
-  public bootstrap() {
+  public async bootstrap() {
     console.log('Start to bootstrap server')
 
     this.app = express()
@@ -34,6 +39,8 @@ export class Application {
       // authorizationChecker: async (action) => {}
       validation: true, // use class transformer to validate 
     });
+
+    await this.database.init()
   }
 
   get applicationServer(): http.Server {
