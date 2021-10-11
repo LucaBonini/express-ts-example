@@ -1,15 +1,18 @@
 import { Controller, Param, Body, Get, Post, Put, Delete, Req, UseInterceptor, NotFoundError, JsonController } from 'routing-controllers';
-import { Service } from 'typedi';
+import { container, Inject, Provide } from '../context/Ioc';
 import { ConsoleLog } from '../decorators/consoleLog.decorator';
 import { consoleLogInterceptor } from '../interceptors/consoleLog.interceptor';
 import { User } from '../models/user.model';
 // import { Inject } from 'typedi';
 import { ExampleInjectedService } from '../services/ExampleService';
 
+@Provide(UserController)
 @JsonController()
-@Service()
 export class UserController {
-  constructor(private readonly exampleService: ExampleInjectedService){}
+  private exampleService: ExampleInjectedService
+  constructor(){
+    this.exampleService = container.get(ExampleInjectedService)
+  }
 
   @Get('/users')
   @UseInterceptor(consoleLogInterceptor)
