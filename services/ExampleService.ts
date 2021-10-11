@@ -1,9 +1,14 @@
-import { Service } from "typedi";
-import { Provide } from "../context/Ioc";
+import { Inject, Provide } from "../context/Ioc";
+import { UserRepository } from "../repositories/UserRepository";
 
 @Provide(ExampleInjectedService)
 export class ExampleInjectedService {
-  printMessage() {
-    return 'Message printed'
+
+  constructor(
+    @Inject(UserRepository) private userRepository: UserRepository
+  ){}
+
+  async printMessage() {
+    return await this.userRepository.getAll()
   }
 }

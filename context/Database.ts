@@ -6,6 +6,10 @@ export class Database {
   private isConnected = false
   private internalConnection: mongoose.Connection
 
+  get connection() {
+    return this.internalConnection
+  }
+
   public async init() {
     return new Promise<void>((resolve, reject) => {
       try {

@@ -15,7 +15,7 @@ export class UserController {
   }
 
   @Get('/users')
-  @UseInterceptor(consoleLogInterceptor)
+  // @UseInterceptor(consoleLogInterceptor)
   @ConsoleLog()
   getAll(@Req() res: Express.Request) {
     return this.exampleService.printMessage();
